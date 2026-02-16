@@ -1,0 +1,44 @@
+Zookeeper:
+
+docker run -p 2181:2181 zookeeper
+
+kafka:
+
+docker run -p 9092:9092 ^
+-e KAFKA_ZOOKEEPER_CONNECT=192.168.11.176:2181 ^
+-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.11.176:9092 ^
+-e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 ^
+confluentinc/cp-kafka
+
+Qdrant:
+
+docker run -p 6333:6333 qdrant/qdrant
+
+
+kafka new:
+docker run -p 9092:9092 ^
+-e KAFKA_PROCESS_ROLES=broker,controller ^
+-e KAFKA_NODE_ID=1 ^
+-e KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 ^
+-e KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 ^
+-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.11.176:9092 ^
+-e KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER ^
+-e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT ^
+-e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 ^
+-e KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0 ^
+confluentinc/cp-kafka
+
+
+
+Next step (tomorrow) becomes powerful:
+
+We add a Query API, and you’ll see:
+
+Producer sends new info
+↓
+Worker embeds it
+↓
+Search immediately finds it
+
+
+Before moving tomorrow, I’ll show you one small change that makes this 10x closer to production (consumer groups + batching).
