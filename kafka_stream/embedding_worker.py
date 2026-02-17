@@ -1,5 +1,6 @@
 from kafka import KafkaConsumer
 import json
+import time
 from dotenv import load_dotenv
 from app.embedder import embed
 from app.vector_store import insert, init_collection
@@ -21,21 +22,32 @@ consumer = KafkaConsumer(
 
 print("Embedding worker started...")
 
+BATCH_INTERVAL = int(os.getenv("KAFKA_CONSUMER_BATCH_INTERVAL", 10))
+MAX_BATCH_SIZE = int(os.getenv("KAFKA_CONSUMER_MAX_BATCH_SIZE", 50))
+buffer = []
+last_flush_time = time.time()
+
 while True:
-    message_batch = consumer.poll(timeout_ms=10000)
-    if not message_batch:
-        continue
-    for topic_partition, messages in message_batch.items():
-        texts_to_embed = []
+    records = consumer.poll(timeout_ms=1000)
+    for _, messages in records.items():
         for message in messages:
-            texts_to_embed.append(message.value['text'])
+            buffer.append(message.value['text'])
+
+    now = time.time()
+
+    
+    if buffer and (len(buffer)>=MAX_BATCH_SIZE or (now - last_flush_time >= BATCH_INTERVAL)):
         try:
-            vectors = embed(texts_to_embed)
-            insert(vectors, texts_to_embed)
+            vectors = embed(buffer)
+            insert(vectors, buffer)
             consumer.commit()
-            print(f"Successfully processed and committed batch of {len(texts_to_embed)} documents.")
+            print(f"Successfully processed and committed batch of {len(buffer)} documents.")
+            buffer.clear()
+            last_flush_time = now
 
         except Exception as e:
-            print(f"Failed to process batch: {e}. Offset not committed. Will retry.")
+            print(f"Failed to process batch: {e}.")
+            raise e
+
 
 
