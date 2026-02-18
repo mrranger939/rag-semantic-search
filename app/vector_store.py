@@ -27,11 +27,11 @@ def insert(vectors, texts):
         payload=[{"text": t} for t in texts],
     )
 
-def search(vector):
+def search(vector, limit):
     results = client.query_points(
         collection_name=COLLECTION,
         query=vector,
-        limit=3
+        limit=limit
     )
 
     return results.points
