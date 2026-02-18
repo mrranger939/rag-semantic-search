@@ -1,5 +1,5 @@
 from app.embedder import embed
-from app.vector_store import search
+from app.Qdrant_db.search_db import search
 
 def search_query(query, limit):
     print(f"Searching for: '{query}'...")

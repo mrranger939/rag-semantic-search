@@ -3,7 +3,8 @@ import json
 import time
 from dotenv import load_dotenv
 from app.embedder import embed
-from app.vector_store import insert, init_collection
+from app.Qdrant_db.insert_db import insert
+from app.Qdrant_db.initialise_db import init_collection
 import os
 
 load_dotenv()
