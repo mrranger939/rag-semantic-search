@@ -3,7 +3,7 @@ from app.agent.state import AgentState
 from app.agent.llm import llm
 
 def retrieve_node(state: AgentState):
-    context = search_query(state['question'], limit=3)
+    context = search_query(state['question'], limit=7)
     return {
         "context": context
     }
@@ -19,6 +19,8 @@ def generate_node(state: AgentState):
     {state['question']}
 
     Give clear and concise answer.
+    If the answer is not clearly present, say:
+    "I don't have enough information."
     """
 
     response = llm.invoke(prompt)

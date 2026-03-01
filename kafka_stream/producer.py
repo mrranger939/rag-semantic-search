@@ -21,21 +21,28 @@ with open("data/alice_in_wonderland.txt", "r", encoding="utf-8") as f:
 
 
 sentences = sent_tokenize(text)
+CHUNK_SIZE = 5
+chunks = []
 
-BATCH_SIZE = 5
+for i in range(0, len(sentences), CHUNK_SIZE):
+    chunk_text = " ".join(sentences[i:i + CHUNK_SIZE])
+    chunks.append(chunk_text)
+
+
+BATCH_SIZE = 3   
 index = 0
 
 while True:
-    batch = sentences[index:index + BATCH_SIZE]
+    batch = chunks[index:index + BATCH_SIZE]
 
     if not batch:
         index = 0
         continue
 
-    for sentence in batch:
-        message = {"text": sentence}
+    for chunk in batch:
+        message = {"text": chunk}
         producer.send(TOPIC, message)
-        print("Sent:", sentence)
+        print("Sent chunk:\n", chunk[:100], "...")  
 
     index += BATCH_SIZE
     time.sleep(2)
