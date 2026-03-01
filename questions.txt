@@ -1,0 +1,124 @@
+If you’re feeding **Alice in Wonderland** into a RAG system (with LangGraph), you want questions that actually *test retrieval + reasoning*, not just trivial recall.
+
+Here’s a structured set of **good question types** you can use 👇
+
+---
+
+## 📖 1. Basic Retrieval (Sanity Check)
+
+These confirm your RAG pipeline is working at all.
+
+* Who is Alice?
+* What happens when Alice follows the White Rabbit?
+* What is the Cheshire Cat known for?
+* Who is the Queen of Hearts?
+
+👉 If these fail, your chunking / embeddings are broken.
+
+---
+
+## 🔍 2. Context-Specific Retrieval
+
+These require pulling the *right chunk*, not just general knowledge.
+
+* What advice does the Caterpillar give Alice?
+* What happens at the Mad Tea Party?
+* Why is the Queen angry during the croquet game?
+* What does Alice find when she enters the small door?
+
+👉 Good for testing chunk relevance + retrieval precision.
+
+---
+
+## 🧠 3. Multi-Chunk Reasoning
+
+These test whether your system can combine info across chunks.
+
+* How does Alice’s size change throughout the story, and what causes it?
+* How do different characters react to Alice’s behavior?
+* What pattern can you see in how authority figures behave in Wonderland?
+
+👉 If this fails, your system retrieves but doesn’t synthesize well.
+
+---
+
+## 🎭 4. Character Understanding
+
+Great for semantic search quality.
+
+* How would you describe the personality of the Cheshire Cat?
+* Compare the Queen of Hearts and the King of Hearts.
+* Why does the Mad Hatter behave strangely?
+
+---
+
+## 🔗 5. “Why” and “How” Questions (Critical for RAG)
+
+These expose hallucination vs grounded answers.
+
+* Why does Alice struggle to understand Wonderland?
+* How does logic differ in Wonderland compared to the real world?
+* Why do conversations often feel nonsensical?
+
+👉 These should force grounded reasoning from retrieved text.
+
+---
+
+## 🧪 6. Adversarial / Trap Questions
+
+These are **very important** for RAG evaluation.
+
+* What is Alice’s last name? ❌ (Not in text)
+* What year does the story take place? ❌
+* What city is Wonderland located in? ❌
+
+👉 Good RAG answer = “Not found in the provided text.”
+
+---
+
+## 🧩 7. Quote-Based Retrieval
+
+Tests exact chunk recall.
+
+* What does the Cheshire Cat say about madness?
+* Find a quote where Alice questions her identity.
+* What line does the Queen repeat frequently?
+
+---
+
+## 🧱 8. Long-Context Questions
+
+Stress test chunk stitching.
+
+* Summarize Alice’s journey from falling down the rabbit hole to the trial.
+* What are the major events in chronological order?
+
+---
+
+## ⚙️ 9. LangGraph-Specific Testing Ideas
+
+Since you’re using LangGraph, you can test flows:
+
+* Ask the same question twice → does it reuse memory?
+* Ask a vague question → does it trigger clarification?
+* Ask multi-step queries:
+
+  * “Who does Alice meet first, and what do they tell her?”
+
+---
+
+## 🧠 Pro Tip (Most Important)
+
+A *good RAG test question*:
+
+* Requires retrieval (not common knowledge)
+* Is grounded in text
+* Has a verifiable answer
+* Sometimes spans multiple chunks
+
+---
+
+If you want, I can:
+
+* Generate a **full evaluation dataset (50–100 Q&A pairs)**
+* Or help you **debug your LangGraph RAG pipeline** (retriever, chunking, etc.)

@@ -1,9 +1,21 @@
-from app.search import search_query
+from app.agent.graph import graph
 
+while True:
+    query = input("\nAsk something (type 'end' to exit): ")
 
+    if not query.strip():
+        print("Please enter a valid question.")
+        continue
 
-query = input("Ask something: ")
-results = search_query(query, limit=3)
+    if query.lower() == "end":
+        print("Exiting...")
+        break
 
-print("\nResults:")
-print(results)
+    result = graph.invoke({
+        "question": query,
+        "context": "",
+        "answer": ""
+    })
+
+    print("\nFinal Answer:\n")
+    print(result["answer"])
