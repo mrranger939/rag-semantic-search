@@ -29,16 +29,3 @@ docker run -p 9092:9092 ^
 confluentinc/cp-kafka
 
 
-
-Next step (tomorrow) becomes powerful:
-
-We add a Query API, and you’ll see:
-
-Producer sends new info
-↓
-Worker embeds it
-↓
-Search immediately finds it
-
-
-Before moving tomorrow, I’ll show you one small change that makes this 10x closer to production (consumer groups + batching).
