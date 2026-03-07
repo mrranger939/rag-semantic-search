@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from kafka import KafkaProducer;
 import json
 import os
+import uuid
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from app.services.ingestion import ingest_text
@@ -34,10 +35,21 @@ def root():
 
 class IngestRequest(BaseModel):
     text: str
+    source: str | None = None
 
 @app.post("/ingest/text")
-def ingest(req:IngestRequest):
-    return ingest_text(text=req.text, producer=producer, topic=TOPIC)
+def ingest(req: IngestRequest):
+
+    metadata = { 
+        "source": req.source if req.source!="manual_text" else f"text_doc_{uuid.uuid4().hex[:6]}" 
+        }
+
+    return ingest_text(
+        text=req.text,
+        producer=producer,
+        topic=TOPIC,
+        metadata=metadata
+    )
 
 
 class ChatRequest(BaseModel):

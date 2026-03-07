@@ -30,6 +30,7 @@ with tab1:
 
     if option == "Text":
 
+        source_name = st.text_input("Document name (optional)")
         text = st.text_area("Paste document text", height=300)
 
         if st.button("Ingest Text"):
@@ -39,7 +40,10 @@ with tab1:
 
                 response = requests.post(
                     f"{BACKEND_URL}/ingest/text",
-                    json={"text": text}
+                    json={
+                        "text": text,
+                        "source": source_name or "manual_text"
+                    }
                 )
 
                 if response.status_code == 200:
