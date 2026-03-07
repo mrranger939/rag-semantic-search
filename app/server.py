@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 from app.services.ingestion import ingest_text
 from app.services.chat_service import chat
+from fastapi import UploadFile, File
+import pdfplumber
 
 load_dotenv()
 
@@ -20,7 +22,10 @@ producer = KafkaProducer(
 print("Kafka connected successfully")
 TOPIC = os.getenv("KAFKA_TOPIC")
 
-
+def clean_text(text):
+    text = text.replace("\n", " ")
+    text = " ".join(text.split())
+    return text
 
 @app.get('/')
 def root():
@@ -41,3 +46,14 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 def chat_endpoint(req: ChatRequest):
     return chat(req.question)
+
+@app.post("/ingest/pdf")
+async def ingest_pdf(file: UploadFile = File(...)):
+
+    text = ""
+
+    with pdfplumber.open(file.file) as pdf:
+        for page in pdf.pages:
+            text += page.extract_text() + "\n"
+    text = clean_text(text)
+    return ingest_text(text, producer=producer, topic=TOPIC)

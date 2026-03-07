@@ -18,24 +18,65 @@ tab1, tab2 = st.tabs(["Ingest Document", "Chat"])
 # ---------------------------
 
 with tab1:
-    st.header("Ingest Text Document")
 
-    text = st.text_area("Paste document text", height=300)
+    st.header("Ingest Document")
 
-    if st.button("Ingest"):
-        if text.strip() == "":
-            st.warning("Please enter some text")
-        else:
+    option = st.radio(
+        "Choose input type",
+        ["Text", "PDF"]
+    )
+
+    # -------- TEXT INGEST --------
+
+    if option == "Text":
+
+        text = st.text_area("Paste document text", height=300)
+
+        if st.button("Ingest Text"):
+            if text.strip() == "":
+                st.warning("Please enter some text")
+            else:
+
+                response = requests.post(
+                    f"{BACKEND_URL}/ingest/text",
+                    json={"text": text}
+                )
+
+                if response.status_code == 200:
+                    data = response.json()
+                    st.success(f"Queued {data['chunks']} chunks")
+                else:
+                    st.error("Failed to ingest text")
+
+    # -------- PDF INGEST --------
+
+    if option == "PDF":
+
+        uploaded_file = st.file_uploader(
+            "Upload PDF",
+            type=["pdf"]
+        )
+
+        if uploaded_file and st.button("Ingest PDF"):
+
+            files = {
+                "file": (
+                    uploaded_file.name,
+                    uploaded_file,
+                    "application/pdf"
+                )
+            }
+
             response = requests.post(
-                f"{BACKEND_URL}/ingest/text",
-                json={"text": text}
+                f"{BACKEND_URL}/ingest/pdf",
+                files=files
             )
 
             if response.status_code == 200:
                 data = response.json()
                 st.success(f"Queued {data['chunks']} chunks")
             else:
-                st.error("Failed to ingest document")
+                st.error("Failed to ingest PDF")
 
 
 # ---------------------------
@@ -43,6 +84,7 @@ with tab1:
 # ---------------------------
 
 with tab2:
+
     st.header("Chat with your knowledge base")
 
     if "messages" not in st.session_state:
