@@ -1,165 +1,144 @@
 
-# RAG Semantic Search (Foundation)
+# Enterprise Agentic RAG Pipeline
 
-A minimal semantic search system built using **sentence embeddings** and a **vector database**.
-This project demonstrates the core retrieval layer used in Retrieval-Augmented Generation (RAG) pipelines.
+An asynchronous, event-driven Retrieval-Augmented Generation (RAG) microservice architecture. Built for high-throughput document ingestion, highly accurate semantic retrieval, and hallucination-free LLM reasoning with strict metadata lineage.
 
-The goal of this project is to build a clean and modular foundation that can later evolve into a real-time agentic RAG system using Kafka and multi-agent orchestration.
+## System Architecture
 
----
+The pipeline decouples ingestion, embedding, and inference into independent, scalable microservices connected by a distributed message broker.
 
-## Overview
-
-Traditional keyword search fails when queries use different wording but have similar meaning.
-Semantic search solves this by converting text into vector embeddings and retrieving results based on meaning rather than exact words.
-
-This project implements:
+```text
+Streamlit UI
+     │
+     ▼
+FastAPI (API Gateway)
+     │
+     ├── POST /ingest/text
+     ├── POST /ingest/pdf
+     └── POST /chat
+     │
+     ▼
+Kafka (Event Stream & Buffer)
+     │
+     ▼
+Embedding Worker (Async ETL)
+     │
+     ▼
+Qdrant (Vector & Metadata Storage)
+     │
+     ▼
+LangGraph Agent (Reasoning & Retrieval)
+     │
+     ▼
+LLM (Answer Generation & Source Citation)
 
 ```
-Text Documents
-      ↓
-Embedding Model (Sentence Transformers)
-      ↓
-Vector Storage (Qdrant)
-      ↓
-Semantic Search (Top-K Retrieval)
-```
-
----
-
-## Features
-
-* Sentence embeddings using HuggingFace Sentence Transformers
-* Vector storage using Qdrant
-* Cosine similarity based retrieval
-* Modular architecture for future scalability
-* Clean separation between embedding, storage, and search logic
-
----
-
 ## Project Structure
 
 ```
-rag-semantic-search/
-│
-├── app/
-│   ├── data.py           # Sample documents
-│   ├── embedder.py       # Embedding generation
-│   ├── vector_store.py   # Qdrant interaction
-│   └── search.py         # Search logic
-│
-├── main.py               # Entry point
+.
+├── app
+│   ├── agent
+│   │   ├── graph.py
+│   │   ├── llm.py
+│   │   ├── nodes.py
+│   │   └── state.py
+│   ├── data.py
+│   ├── embedder.py
+│   ├── generate_hash.py
+│   ├── Qdrant_db
+│   │   ├── initialise_db.py
+│   │   ├── insert_db.py
+│   │   └── search_db.py
+│   ├── search.py
+│   ├── server.py
+│   ├── services
+│   │   ├── chat_service.py
+│   │   └── ingestion.py
+│   └── ui.py
+├── data
+│   ├── alice_in_wonderland.txt
+│   ├── ML-1-10.pdf
+│   └── ML-11-20.pdf
+├── kafka_stream
+│   ├── embedding_worker.py
+│   └── producer.py
+├── main.py
+├── questions.txt
+├── README.md
 ├── requirements.txt
-└── README.md
+└── start.txt
 ```
 
----
+## Core Infrastructure
 
-## Tech Stack
+* **Asynchronous Ingestion (FastAPI + Kafka):** Documents are chunked using `tiktoken` (enforcing strict token limits and overlaps) and streamed into Kafka, preventing API timeouts during massive document uploads.
+* **Decoupled Embedding (Python Worker):** A standalone worker continuously consumes the Kafka stream, generates vector embeddings, and upserts them into Qdrant.
+* **Metadata Lineage:** Every chunk mathematically retains its origin data (e.g., `filename`, `source`). The LLM does not just answer; it cites the exact document it extracted the answer from.
+* **State Machine Reasoning (LangGraph):** Inference is not a simple API call. It is a deterministic state graph that retrieves context, formats the prompt, and enforces strict boundary conditions on the LLM to prevent hallucinations.
 
-* Python
-* Sentence Transformers (HuggingFace)
-* Qdrant Vector Database
-* Docker
+## Local Deployment
 
----
-
-## How It Works
-
-1. Documents are converted into embeddings using a pre-trained embedding model.
-2. Embeddings are stored in Qdrant along with metadata.
-3. A user query is converted into an embedding.
-4. The system retrieves the most semantically similar documents.
-
----
-
-## Setup Instructions
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/mrranger939/rag-semantic-search
-cd rag-semantic-search
-```
-
----
-
-### 2. Create virtual environment
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
----
-
-### 3. Install dependencies
+### 1. Prerequisites
 
 ```bash
 pip install -r requirements.txt
+
 ```
 
----
+### 2. Boot Core Services (Docker)
 
-### 4. Run Qdrant
+**Start Qdrant (Vector DB):**
 
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
-```
-
-Dashboard:
 
 ```
-http://localhost:6333/dashboard
-```
 
----
-
-### 5. Run the project
+**Start Kafka (Message Broker):**
 
 ```bash
-python main.py
-```
-
-Enter a query when prompted to retrieve similar documents.
-
----
-
-## Example
-
-Query:
-
-```
-I forgot my password
-```
-
-Result:
+docker run -p 9092:9092 \
+-e KAFKA_PROCESS_ROLES=broker,controller \
+-e KAFKA_NODE_ID=1 \
+-e KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 \
+-e KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
+-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
+-e KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+-e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT \
+-e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
+-e KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0 \
+confluentinc/cp-kafka
 
 ```
-How to reset password?
-How to change account email?
+
+### 3. Initialize the Pipeline
+
+You must run these three services simultaneously in separate terminals.
+
+**Terminal 1: Start the Embedding Worker**
+
+```bash
+python -m kafka_stream.embedding_worker
+
 ```
 
----
+**Terminal 2: Start the API Gateway**
 
-## Future Improvements
+```bash
+uvicorn app.server:app --reload --port 8000
 
-This project is the first step toward a larger system:
+```
 
-* Kafka-based real-time document ingestion
-* Embedding worker service
-* LangGraph-based multi-agent orchestration
-* Retrieval grading and query rewriting
-* Production-ready RAG pipeline
+**Terminal 3: Start the UI**
 
----
+```bash
+streamlit run app/ui.py
 
-## Learning Objective
+```
 
-The purpose of this project is to understand:
+## Workflow & Usage
 
-* Embeddings and semantic similarity
-* Vector databases
-* Retrieval systems used in modern AI applications
-* Foundations of scalable RAG architectures
-
+1. **Ingest:** Upload a `.pdf` or paste raw text via the Streamlit UI. The API will parse, chunk, and stream the payload to Kafka.
+2. **Process:** The Embedding Worker automatically consumes the stream and indexes the vectors into Qdrant.
+3. **Query:** Ask a question in the chat interface. The LangGraph agent will execute a semantic search, inject the top chunks into the LLM context window, and return a deterministic answer citing the source document.
