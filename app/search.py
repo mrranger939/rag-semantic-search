@@ -8,8 +8,10 @@ def search_query(query, limit):
     context_blocks = []
     for hit in results:
         doc_text = hit.payload.get('text', '')
-        score = hit.score # The cosine similarity score
-        context_blocks.append(f"[Score: {score:.2f}] {doc_text}")
+        source = hit.payload.get("source", "unknown")
+        context_blocks.append(
+            f"Document: {source}\nContent:\n{doc_text}"
+        )
         
     final_context = "\n---\n".join(context_blocks)
     return final_context

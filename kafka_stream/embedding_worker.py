@@ -26,13 +26,16 @@ print("Embedding worker started...")
 BATCH_INTERVAL = int(os.getenv("KAFKA_CONSUMER_BATCH_INTERVAL", 10))
 MAX_BATCH_SIZE = int(os.getenv("KAFKA_CONSUMER_MAX_BATCH_SIZE", 50))
 buffer = []
+metadata_buffer = []
 last_flush_time = time.time()
 
 while True:
     records = consumer.poll(timeout_ms=1000)
     for _, messages in records.items():
         for message in messages:
-            buffer.append(message.value['text'])
+            payload = message.value
+            buffer.append(payload["text"])
+            metadata_buffer.append(payload.get("metadata", {}))
 
     now = time.time()
 
@@ -40,10 +43,11 @@ while True:
     if buffer and (len(buffer)>=MAX_BATCH_SIZE or (now - last_flush_time >= BATCH_INTERVAL)):
         try:
             vectors = embed(buffer)
-            insert(vectors, buffer)
+            insert(vectors, buffer, metadata_buffer)
             consumer.commit()
             print(f"Successfully processed and committed batch of {len(buffer)} documents.")
             buffer.clear()
+            metadata_buffer.clear()
             last_flush_time = now
 
         except Exception as e:

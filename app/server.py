@@ -19,7 +19,7 @@ producer = KafkaProducer(
     bootstrap_servers=os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"),
     value_serializer=lambda v: json.dumps(v).encode("utf-8")
 )
-print("Kafka connected successfully")
+print("Kafka connected successfully!!")
 TOPIC = os.getenv("KAFKA_TOPIC")
 
 def clean_text(text):
@@ -55,5 +55,16 @@ async def ingest_pdf(file: UploadFile = File(...)):
     with pdfplumber.open(file.file) as pdf:
         for page in pdf.pages:
             text += page.extract_text() + "\n"
+
     text = clean_text(text)
-    return ingest_text(text, producer=producer, topic=TOPIC)
+
+    metadata = {
+        "source": file.filename
+    }
+
+    return ingest_text(
+        text,
+        producer=producer,
+        topic=TOPIC,
+        metadata=metadata
+    )

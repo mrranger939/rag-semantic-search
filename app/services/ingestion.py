@@ -47,12 +47,15 @@ def chunk_text(text):
 
     return chunks
 
-def ingest_text(text: str, producer, topic: str):
+def ingest_text(text: str, producer, topic: str, metadata: dict | None = None):
 
     chunks = chunk_text(text)
 
     for chunk in chunks:
-        producer.send(topic, {"text": chunk})
+        producer.send(topic, {
+            "text": chunk,
+            "metadata": metadata or {}
+        })
 
     producer.flush()
 

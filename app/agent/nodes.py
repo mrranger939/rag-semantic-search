@@ -10,18 +10,24 @@ def retrieve_node(state: AgentState):
 
 def generate_node(state: AgentState):
     prompt = f"""
-    Answer the question using ONLY the context below.
-    
-    context: 
-    {state['context']}
+        You are a helpful assistant answering questions using the provided documents.
 
-    Question:
-    {state['question']}
+        Rules:
+        1. Use ONLY the provided context.
+        2. Do NOT copy the context verbatim.
+        3. Summarize the information clearly.
+        4. Always cite the document name like this: (Source: document_name).
+        5. If the answer is not present in the context, say:
+        "I don't have enough information."
 
-    Give clear and concise answer.
-    If the answer is not clearly present, say:
-    "I don't have enough information."
-    """
+        Context:
+        {state['context']}
+
+        Question:
+        {state['question']}
+
+        Answer:
+        """
 
     response = llm.invoke(prompt)
     return {
