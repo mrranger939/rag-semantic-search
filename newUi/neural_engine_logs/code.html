@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project R - Neural Engine &amp; Vector Logs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#3a3939",
+              "on-primary-fixed": "#001f28",
+              "primary-fixed-dim": "#47d6ff",
+              "on-primary-container": "#00566a",
+              "tertiary-fixed": "#ffddb1",
+              "surface-container-lowest": "#0e0e0e",
+              "on-error": "#690005",
+              "surface-container-high": "#2a2a2a",
+              "secondary": "#c8c6c5",
+              "on-tertiary-container": "#6c4700",
+              "on-surface-variant": "#bbc9cf",
+              "tertiary-container": "#ffb229",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-tertiary-fixed-variant": "#624000",
+              "surface-variant": "#353534",
+              "surface-container": "#201f1f",
+              "inverse-on-surface": "#313030",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed": "#1c1b1b",
+              "outline-variant": "#3c494e",
+              "inverse-primary": "#00677f",
+              "on-tertiary": "#442b00",
+              "on-secondary": "#313030",
+              "primary": "#a5e7ff",
+              "on-tertiary-fixed": "#291800",
+              "error": "#ffb4ab",
+              "secondary-fixed": "#e5e2e1",
+              "background": "#131313",
+              "surface": "#131313",
+              "tertiary-fixed-dim": "#ffba4a",
+              "surface-tint": "#47d6ff",
+              "error-container": "#93000a",
+              "primary-container": "#00d2ff",
+              "inverse-surface": "#e5e2e1",
+              "on-primary-fixed-variant": "#004e60",
+              "on-surface": "#e5e2e1",
+              "on-secondary-fixed-variant": "#474746",
+              "on-error-container": "#ffdad6",
+              "outline": "#859399",
+              "on-secondary-container": "#b7b4b4",
+              "surface-container-highest": "#353534",
+              "primary-fixed": "#b6ebff",
+              "on-primary": "#003543",
+              "surface-dim": "#131313",
+              "tertiary": "#ffd79f",
+              "on-background": "#e5e2e1",
+              "secondary-container": "#474746"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .glass-card {
+        background: rgba(42, 42, 42, 0.4);
+        backdrop-filter: blur(12px);
+      }
+      .glow-border-active {
+        border-bottom: 2px solid #00D2FF;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky bg-[#131313] dark:bg-[#0A0A0A] shadow-[0_32px_64px_rgba(0,210,255,0.06)] z-50">
+<div class="flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-[#00D2FF] font-['Manrope']">Project R</span>
+<div class="hidden md:flex items-center gap-6 font-['Manrope'] text-sm tracking-wide">
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Docs</a>
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Settings</a>
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Security</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 mr-4">
+<span class="material-symbols-outlined text-[#e5e2e1]/60 cursor-pointer hover:text-[#00D2FF] transition-all">history</span>
+<span class="material-symbols-outlined text-[#e5e2e1]/60 cursor-pointer hover:text-[#00D2FF] transition-all">notifications</span>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-1.5 rounded text-sm font-bold scale-95 active:opacity-80 transition-all">
+                    New Query
+                </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a modern software engineer in a dark studio setting with subtle blue rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgzwbX2cBqxV4wZYiPEftXQ8RDrn_cgzIxZ0qeTzobjJQ-iVVsfurTwhQB40WNwaAZbJqPdtv2juchGVe06SpDmNoHkYSTPMpn4y0hJCb16pzBTnkD1K9MgppICQCJtqZ7polKV95Fws_e5KDpbzlIfjva4f2OBFPpOIcMGcaLTns9VT5sxESIG4Cgt4GlwFpOLgBqpA83KztZKtpC6NcDK4ade9hNmO0z4JGnODuX8HWxSgASYJIDhVWTqIZKLzQFyfbnlg6SxPg"/>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="h-full w-64 bg-[#1C1B1B] dark:bg-[#1C1B1B] flex flex-col py-6 px-4 shrink-0 overflow-y-auto no-scrollbar">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-8 h-8 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-lg" style="font-variation-settings: 'FILL' 1;">deployed_code</span>
+</div>
+<div>
+<h2 class="font-['Manrope'] font-bold text-[#e5e2e1] leading-none">Project R</h2>
+<p class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest text-[#00D2FF] mt-1">ENTERPRISE AI V2.4</p>
+</div>
+</div>
+<div class="flex-1 space-y-1">
+<div class="text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest py-3 px-4 flex items-center gap-3 cursor-pointer active:translate-x-1 transition-all duration-200">
+<span class="material-symbols-outlined text-lg">database</span>
+<span>Knowledge Vault</span>
+</div>
+<div class="text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest py-3 px-4 flex items-center gap-3 cursor-pointer active:translate-x-1 transition-all duration-200">
+<span class="material-symbols-outlined text-lg">psychology</span>
+<span>The Oracle</span>
+</div>
+<!-- Active Tab: Neural Engine -->
+<div class="text-[#00D2FF] bg-[#2A2A2A] rounded-r-lg border-l-4 border-[#00D2FF] font-['Inter'] text-xs font-medium uppercase tracking-widest py-3 px-4 flex items-center gap-3 cursor-pointer active:translate-x-1 transition-all duration-200">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">memory</span>
+<span>Neural Engine</span>
+</div>
+<div class="text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest py-3 px-4 flex items-center gap-3 cursor-pointer active:translate-x-1 transition-all duration-200">
+<span class="material-symbols-outlined text-lg">segment</span>
+<span>Vector Logs</span>
+</div>
+<div class="text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest py-3 px-4 flex items-center gap-3 cursor-pointer active:translate-x-1 transition-all duration-200">
+<span class="material-symbols-outlined text-lg">monitoring</span>
+<span>Analytics</span>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/15 space-y-1">
+<button class="w-full bg-surface-container-high hover:bg-surface-container-highest text-primary-fixed-dim font-bold py-2.5 rounded mb-4 transition-all text-xs uppercase tracking-widest">
+                    Deploy Model
+                </button>
+<div class="text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest py-2 px-4 flex items-center gap-3 cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined text-base">help</span>
+<span>Support</span>
+</div>
+<div class="text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest py-2 px-4 flex items-center gap-3 cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined text-base">sensors</span>
+<span>API Status</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background p-8 no-scrollbar">
+<!-- Header Section -->
+<header class="mb-10">
+<div class="flex items-center gap-3 mb-2">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#00D2FF]"></span>
+<span class="text-xs font-bold tracking-[0.2em] text-on-surface-variant uppercase">Core System Diagnostics</span>
+</div>
+<h1 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface">Neural Engine <span class="text-primary-container">V2.4</span></h1>
+</header>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
+<!-- Large Detail Card -->
+<div class="md:col-span-2 bg-surface-container-low p-6 rounded-xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-xs font-medium text-on-surface-variant uppercase tracking-widest">Active Model</span>
+<span class="material-symbols-outlined text-primary-container">smart_toy</span>
+</div>
+<div class="mt-4">
+<p class="text-3xl font-black font-headline text-on-surface">Llama-3-8b</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary-container/10 text-primary-container uppercase tracking-tighter">Quantized Int8</span>
+<span class="text-[10px] text-on-surface-variant/60 uppercase">Revision 442</span>
+</div>
+</div>
+</div>
+<!-- Metric Card: Latency -->
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-12 h-12 bg-primary-container/5 rounded-bl-3xl translate-x-4 -translate-y-4"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-4 block">Latency</span>
+<p class="text-4xl font-black font-headline text-primary-container">14<span class="text-lg font-medium ml-1">ms</span></p>
+<div class="w-full bg-surface-container-high h-1 mt-4 overflow-hidden">
+<div class="bg-primary-container h-full w-[88%] group-hover:w-[92%] transition-all duration-700"></div>
+</div>
+</div>
+<!-- Metric Card: GPU -->
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-4 block">GPU Utilization</span>
+<p class="text-4xl font-black font-headline text-on-surface">42<span class="text-lg font-medium ml-1">%</span></p>
+<div class="flex gap-1 mt-4">
+<div class="h-4 w-1 bg-primary-container"></div>
+<div class="h-4 w-1 bg-primary-container"></div>
+<div class="h-4 w-1 bg-primary-container"></div>
+<div class="h-4 w-1 bg-primary-container/20"></div>
+<div class="h-4 w-1 bg-primary-container/20"></div>
+<div class="h-4 w-1 bg-primary-container/20"></div>
+</div>
+</div>
+<!-- Metric Card: Score -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-primary-container/10">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-4 block">Retrieval Score</span>
+<p class="text-4xl font-black font-headline text-on-surface">0.94</p>
+<div class="mt-4 flex items-center gap-1 text-[10px] text-primary-container">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>+2.4% vs baseline</span>
+</div>
+</div>
+</div>
+<!-- Asymmetric Layout: Vector Logs & Neural Visualization -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Vector Logs Terminal (Left 2/3) -->
+<div class="lg:col-span-2 flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">terminal</span>
+<h3 class="font-bold text-sm tracking-wide uppercase">Vector Logs</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-[10px] font-medium text-on-surface-variant">STREAMING LIVE</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 h-[400px] font-mono text-xs overflow-y-auto no-scrollbar shadow-inner relative group">
+<!-- Custom Gradient for depth -->
+<div class="sticky top-0 h-8 w-full bg-gradient-to-b from-surface-container-lowest to-transparent pointer-events-none -mt-4"></div>
+<div class="space-y-3 opacity-80 group-hover:opacity-100 transition-opacity">
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:01.02</span>
+<span class="text-primary-container font-bold shrink-0">[INFO]</span>
+<span class="text-on-surface">Neural context window initialized. Memory: 1.2GB/16GB.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:05.12</span>
+<span class="text-[#ffb229] font-bold shrink-0">[QDRANT]</span>
+<span class="text-on-surface">Querying collection 'enterprise_v2' with vector dim 1536.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:06.88</span>
+<span class="text-primary-container font-bold shrink-0">[INFO]</span>
+<span class="text-on-surface">Cosine similarity match found (0.942). Fragment ID: bx_099.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:07.01</span>
+<span class="text-error font-bold shrink-0">[ERROR]</span>
+<span class="text-error">Tokenizer encountered unrecognized sequence in buffer_A.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:08.54</span>
+<span class="text-primary-container font-bold shrink-0">[INFO]</span>
+<span class="text-on-surface">Auto-recovery initiated. Re-balancing tensor heads.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:10.22</span>
+<span class="text-[#ffb229] font-bold shrink-0">[QDRANT]</span>
+<span class="text-on-surface">Upsert successful. Metadata: { source: "manual_upload" }.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:11.45</span>
+<span class="text-primary-container font-bold shrink-0">[INFO]</span>
+<span class="text-on-surface">Stream synchronization complete. Standing by for next prompt.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/40 shrink-0">12:44:15.89</span>
+<span class="text-primary-container font-bold shrink-0">[INFO]</span>
+<span class="text-on-surface">Llama-3-8b attention mask verified. Heatmaps stable.</span>
+</div>
+<div class="flex gap-4 animate-pulse">
+<span class="text-on-surface-variant/40 shrink-0">12:44:18.00</span>
+<span class="text-primary-container font-bold shrink-0">_</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Connections & Status (Right 1/3) -->
+<div class="flex flex-col gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl flex-1">
+<h4 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-6">Active Nodes</h4>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">hub</span>
+</div>
+<div>
+<p class="text-sm font-bold">Total Connections</p>
+<p class="text-[10px] text-on-surface-variant">Active WebSocket Threads</p>
+</div>
+</div>
+<span class="text-xl font-black font-headline">12</span>
+</div>
+<div class="space-y-4 pt-4">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Primary Hub</span>
+<span class="text-primary-container">Operational</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[94%]"></div>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Shadow Replica</span>
+<span class="text-primary-container">Syncing</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[20%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Pulse Component -->
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-32 h-32 bg-primary-container/10 blur-3xl"></div>
+<h4 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-4">Neural Pulse</h4>
+<div class="flex flex-col items-center py-4">
+<div class="w-16 h-16 rounded-full border-4 border-primary-container/20 flex items-center justify-center relative">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 absolute animate-ping"></div>
+<span class="material-symbols-outlined text-primary-container text-3xl" style="font-variation-settings: 'FILL' 1;">electric_bolt</span>
+</div>
+<p class="mt-4 text-xs font-bold text-on-surface">SYNERGY PROTOCOL</p>
+<p class="text-[10px] text-on-surface-variant">OPTIMIZING ATTENTION TENSORS</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Floating Action Button - Suprressed as per rules on Details/Diagnostics -->
+</body></html>

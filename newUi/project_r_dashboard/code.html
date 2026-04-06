@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface": "#131313",
+                        "secondary": "#c8c6c5",
+                        "tertiary-fixed": "#ffddb1",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#47d6ff",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#b7b4b4",
+                        "surface-bright": "#3a3939",
+                        "tertiary-fixed-dim": "#ffba4a",
+                        "surface-variant": "#353534",
+                        "outline-variant": "#3c494e",
+                        "on-primary-fixed": "#001f28",
+                        "primary-container": "#00d2ff",
+                        "tertiary": "#ffd79f",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "on-secondary": "#313030",
+                        "tertiary-container": "#ffb229",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-container-highest": "#353534",
+                        "surface-dim": "#131313",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary-container": "#00566a",
+                        "on-primary": "#003543",
+                        "surface-tint": "#47d6ff",
+                        "on-tertiary-fixed": "#291800",
+                        "outline": "#859399",
+                        "on-tertiary": "#442b00",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#201f1f",
+                        "on-primary-fixed-variant": "#004e60",
+                        "on-surface-variant": "#bbc9cf",
+                        "on-tertiary-container": "#6c4700",
+                        "inverse-primary": "#00677f",
+                        "primary": "#a5e7ff",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "on-surface": "#e5e2e1",
+                        "primary-fixed": "#b6ebff",
+                        "secondary-container": "#474746",
+                        "error-container": "#93000a",
+                        "background": "#0a0a0a"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #0a0a0a; color: #e5e2e1; font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(28, 27, 27, 0.7); backdrop-filter: blur(12px); }
+        .glow-cyan { box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#1C1B1B] flex flex-col py-6 px-4 z-50">
+<div class="mb-10 px-2">
+<h1 class="font-['Manrope'] font-bold text-[#e5e2e1] text-2xl tracking-tighter">Project R</h1>
+<p class="font-['Inter'] text-[10px] font-medium uppercase tracking-[0.2em] text-[#00D2FF]/80 mt-1">ENTERPRISE AI V2.4</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Knowledge Vault -->
+<a class="flex items-center gap-3 px-3 py-3 text-[#00D2FF] bg-[#2A2A2A] rounded-r-lg border-l-4 border-[#00D2FF] font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer active:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">database</span>
+<span>Knowledge Vault</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 hover:text-[#00D2FF] font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer active:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">psychology</span>
+<span>The Oracle</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 hover:text-[#00D2FF] font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer active:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">memory</span>
+<span>Neural Engine</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 hover:text-[#00D2FF] font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer active:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">segment</span>
+<span>Vector Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 hover:text-[#00D2FF] font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer active:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg">monitoring</span>
+<span>Analytics</span>
+</a>
+</nav>
+<div class="mt-8 px-2">
+<h3 class="text-[10px] font-bold text-[#e5e2e1]/30 uppercase tracking-widest mb-4">Pinned Documents</h3>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 px-2 py-1.5 bg-[#2A2A2A]/40 rounded border border-[#3c494e]/10">
+<span class="material-symbols-outlined text-xs text-[#00D2FF]">description</span>
+<span class="text-[10px] text-on-surface-variant truncate">HR_Policies.pdf</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1.5 bg-[#2A2A2A]/40 rounded border border-[#3c494e]/10">
+<span class="material-symbols-outlined text-xs text-[#00D2FF]">verified_user</span>
+<span class="text-[10px] text-on-surface-variant truncate">Compliance_v2.pdf</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-[#2A2A2A]/30">
+<button class="w-full py-3 bg-gradient-to-br from-[#a5e7ff] to-[#00D2FF] text-[#003543] font-bold text-xs uppercase tracking-widest rounded transition-all hover:brightness-110 active:scale-95">
+                Deploy Model
+            </button>
+<div class="flex justify-around mt-6 opacity-40">
+<span class="material-symbols-outlined cursor-pointer hover:text-[#00D2FF]">help</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-[#00D2FF]">sensors</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky z-40 bg-[#131313] shadow-[0_32px_64px_rgba(0,210,255,0.06)] flex justify-between items-center px-8 h-16">
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[#e5e2e1]/40 text-sm">search</span>
+<input class="bg-[#0e0e0e] border-none rounded-lg pl-10 pr-4 py-1.5 text-xs w-64 focus:ring-1 focus:ring-[#00D2FF] text-[#e5e2e1]" placeholder="Search knowledge..." type="text"/>
+</div>
+<div class="flex gap-6 font-['Manrope'] text-sm tracking-wide">
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Docs</a>
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Settings</a>
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Security</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-1.5 border border-[#00D2FF]/30 text-[#00D2FF] text-xs font-bold uppercase tracking-widest rounded hover:bg-[#00D2FF]/10 transition-all">
+                    New Query
+                </button>
+<div class="flex gap-3 text-[#e5e2e1]/60">
+<span class="material-symbols-outlined cursor-pointer hover:text-[#00D2FF]">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-[#00D2FF]">history</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#1c1b1b] to-[#2a2a2a] flex items-center justify-center border border-[#3c494e]/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a professional man in a dark minimalist studio with soft blue ambient lighting on his face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw_gK73GtAJs2pMRS0kBpN_PYNQJSHxcM8krWacBLVmo-w1O0xyna5SRbTUfWGKB0rAkGTF2WJyw6lUYS1dJoCD-Is7fzxLkDzBOrMkGJdTzAL7xOotGb547tVSZP9gNHzpfcWWzqPbndAQ9HaowQI7pDAaxBuhAs8amPfwgccpTfFvBbhJC8gFFQcEBgLfmfRIU_EB1sacAm8qKUvE6OunmO4vFXSG8ZQ5zTh4Obmd_8hsow3uVfQXrHgx-JJ2aq6tlCBKb0GT8Q"/>
+</div>
+</div>
+</header>
+<!-- Dynamic Content (Tab 1: Knowledge Vault) -->
+<section class="p-8 max-w-7xl mx-auto w-full flex-1">
+<div class="mb-10">
+<h2 class="text-4xl font-headline font-extrabold tracking-tight text-[#00D2FF]">INGESTION ZONE</h2>
+<p class="text-on-surface-variant text-sm mt-2 font-body max-w-2xl">Connect and process enterprise intelligence from raw documentation into vector-ready neural fragments.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6 h-[calc(100vh-280px)]">
+<!-- Left: Text Area Ingestion -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-low rounded-xl p-6 flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-[#00D2FF]"></div>
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline text-lg font-bold">Raw Context Stream</h3>
+<span class="text-[10px] font-mono text-[#00D2FF]/50 uppercase">Input Buffer: 0 KB</span>
+</div>
+<textarea class="flex-1 bg-surface-container-lowest border-none rounded-lg p-6 text-sm text-on-surface focus:ring-1 focus:ring-[#00D2FF]/40 resize-none placeholder:text-[#e5e2e1]/20" placeholder="Paste technical documentation, system architecture notes, or unstructured logs here..."></textarea>
+</div>
+<!-- Right: File Uploader & Controls -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<!-- File Drop -->
+<div class="flex-1 bg-surface-container-low rounded-xl p-8 border-2 border-dashed border-[#3c494e]/30 flex flex-col items-center justify-center text-center group hover:border-[#00D2FF]/40 transition-all duration-300">
+<div class="w-16 h-16 rounded-full bg-[#00D2FF]/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[#00D2FF] text-3xl">cloud_upload</span>
+</div>
+<h4 class="font-headline font-bold mb-2">Drop PDF or MD files</h4>
+<p class="text-xs text-on-surface-variant px-12">Maximum file size: 128MB per shard. Supported: .pdf, .md, .txt, .json</p>
+<button class="mt-6 px-6 py-2 bg-surface-container-high text-[#00D2FF] text-[10px] font-bold uppercase tracking-widest rounded border border-[#00D2FF]/20 hover:bg-[#00D2FF]/10">Browse Files</button>
+</div>
+<!-- Processing Panel -->
+<div class="bg-surface-container-high rounded-xl p-6 shadow-xl relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-[#00D2FF]/5 to-transparent opacity-50"></div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-[10px] uppercase font-bold tracking-widest text-[#00D2FF]">Ready for Processing</p>
+<h4 class="font-headline font-bold text-xl mt-1">Neural Integration</h4>
+</div>
+<div class="w-10 h-10 rounded-lg bg-[#00D2FF]/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#00D2FF]">bolt</span>
+</div>
+</div>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Embedding Model</span>
+<span class="text-[#00D2FF]">ada-002-v2</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Chunk Size</span>
+<span class="text-[#00D2FF]">512 Tokens</span>
+</div>
+<div class="w-full bg-[#0a0a0a] h-1 rounded-full overflow-hidden">
+<div class="w-1/3 h-full bg-[#00D2FF] glow-cyan"></div>
+</div>
+</div>
+<button class="w-full py-4 bg-gradient-to-r from-[#00D2FF] to-[#a5e7ff] text-[#003543] font-bold text-sm uppercase tracking-widest rounded-lg shadow-[0_10px_20px_rgba(0,210,255,0.2)] hover:scale-[1.02] active:scale-95 transition-all">
+                                PROCESS DATA
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Floating Analytics Bar (Subtle Info) -->
+<footer class="mt-auto px-8 py-4 bg-surface-container-lowest border-t border-[#3c494e]/5 flex justify-between items-center text-[10px] tracking-widest uppercase font-medium text-on-surface-variant/40">
+<div class="flex gap-8">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+<span>Qdrant Cluster: Healthy</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-[#00D2FF] shadow-[0_0_8px_rgba(0,210,255,0.5)]"></span>
+<span>NEURAL ENGINE ACTIVE</span>
+</div>
+</div>
+<div class="flex gap-6">
+<span>Latency: 14ms</span>
+<span>Uptime: 99.98%</span>
+<span class="text-[#00D2FF]/40">V2.4.0-STABLE</span>
+</div>
+</footer>
+</main>
+<!-- Content Overlays (Illustrative for prompt completeness) -->
+<!-- Tab 2: The Oracle (Abstract visualization for context) -->
+<div class="hidden fixed inset-0 z-0 opacity-10 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00D2FF] rounded-full blur-[200px]"></div>
+</div>
+</body></html>

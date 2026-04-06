@@ -1,0 +1,323 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#3a3939",
+            "on-primary-fixed": "#001f28",
+            "primary-fixed-dim": "#47d6ff",
+            "on-primary-container": "#00566a",
+            "tertiary-fixed": "#ffddb1",
+            "surface-container-lowest": "#0e0e0e",
+            "on-error": "#690005",
+            "surface-container-high": "#2a2a2a",
+            "secondary": "#c8c6c5",
+            "on-tertiary-container": "#6c4700",
+            "on-surface-variant": "#bbc9cf",
+            "tertiary-container": "#ffb229",
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-tertiary-fixed-variant": "#624000",
+            "surface-variant": "#353534",
+            "surface-container": "#201f1f",
+            "inverse-on-surface": "#313030",
+            "surface-container-low": "#1c1b1b",
+            "on-secondary-fixed": "#1c1b1b",
+            "outline-variant": "#3c494e",
+            "inverse-primary": "#00677f",
+            "on-tertiary": "#442b00",
+            "on-secondary": "#313030",
+            "primary": "#a5e7ff",
+            "on-tertiary-fixed": "#291800",
+            "error": "#ffb4ab",
+            "secondary-fixed": "#e5e2e1",
+            "background": "#131313",
+            "surface": "#131313",
+            "tertiary-fixed-dim": "#ffba4a",
+            "surface-tint": "#47d6ff",
+            "error-container": "#93000a",
+            "primary-container": "#00d2ff",
+            "inverse-surface": "#e5e2e1",
+            "on-primary-fixed-variant": "#004e60",
+            "on-surface": "#e5e2e1",
+            "on-secondary-fixed-variant": "#474746",
+            "on-error-container": "#ffdad6",
+            "outline": "#859399",
+            "on-secondary-container": "#b7b4b4",
+            "surface-container-highest": "#353534",
+            "primary-fixed": "#b6ebff",
+            "on-primary": "#003543",
+            "surface-dim": "#131313",
+            "tertiary": "#ffd79f",
+            "on-background": "#e5e2e1",
+            "secondary-container": "#474746"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #2a2a2a;
+      border-radius: 10px;
+    }
+    .intelligence-pulse {
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#1C1B1B] flex flex-col py-6 px-4 z-50">
+<div class="mb-10 px-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-lg" data-icon="terminal">terminal</span>
+</div>
+<div>
+<h1 class="font-headline font-bold text-[#e5e2e1] leading-none">Project R</h1>
+<p class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest text-[#00D2FF] mt-1">ENTERPRISE AI V2.4</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span>Knowledge Vault</span>
+</div>
+<!-- ACTIVE STATE: The Oracle -->
+<div class="flex items-center gap-3 py-3 px-4 text-[#00D2FF] bg-[#2A2A2A] rounded-r-lg border-l-4 border-[#00D2FF] font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer active:translate-x-1">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span>The Oracle</span>
+</div>
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span>Neural Engine</span>
+</div>
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest">
+<span class="material-symbols-outlined" data-icon="segment">segment</span>
+<span>Vector Logs</span>
+</div>
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer text-[#e5e2e1]/40 hover:bg-[#2A2A2A]/50 font-['Inter'] text-xs font-medium uppercase tracking-widest">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Analytics</span>
+</div>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-xs uppercase tracking-widest rounded transition-all hover:brightness-110">
+        Deploy Model
+      </button>
+<div class="pt-4 border-t border-outline-variant/10 space-y-1">
+<div class="flex items-center gap-3 py-2 px-4 text-[#e5e2e1]/40 hover:text-[#00D2FF] transition-colors font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+<span>Support</span>
+</div>
+<div class="flex items-center gap-3 py-2 px-4 text-[#e5e2e1]/40 hover:text-[#00D2FF] transition-colors font-['Inter'] text-xs font-medium uppercase tracking-widest cursor-pointer">
+<span class="material-symbols-outlined text-sm" data-icon="sensors">sensors</span>
+<span>API Status</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 flex flex-col h-screen bg-[#0A0A0A]">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-[#131313] shadow-[0_32px_64px_rgba(0,210,255,0.06)] flex justify-between items-center px-8 h-16 z-40">
+<div class="flex items-center gap-6">
+<span class="font-headline font-black tracking-tighter text-xl text-[#00D2FF]">Project R</span>
+<div class="flex items-center gap-2 bg-[#1C1B1B] px-3 py-1.5 rounded text-xs text-on-surface-variant">
+<div class="w-2 h-2 rounded-full bg-[#00D2FF] intelligence-pulse animate-pulse"></div>
+<span class="font-medium tracking-tight">NEURAL ENGINE ACTIVE</span>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-8 font-headline text-sm tracking-wide">
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Docs</a>
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Settings</a>
+<a class="text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-colors duration-300" href="#">Security</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-all"><span class="material-symbols-outlined" data-icon="history">history</span></button>
+<button class="p-2 text-[#e5e2e1]/60 hover:text-[#00D2FF] transition-all"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+</div>
+<button class="px-4 py-1.5 bg-[#1C1B1B] text-[#00D2FF] text-xs font-bold uppercase tracking-widest rounded border border-primary/10 hover:border-primary/30 transition-all">
+          New Query
+        </button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with neutral expression and sharp lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrxM26pS7yzAjKxDW0NZGumsasE9kS8lzcQ_M4fIudZzMT7z65CV2pY3q0bqO20uO1SUM1wK98Cv_6Y6-FG2MBNI3iDiFaAjS-_zx3gcwP43csAThG6dCLwbOPgcgdg_wwebkeKobi7zxzH5cGyr43fivv4Vf8zipfDLCPMrDvP16rP5UA-ByEzOvW4XfrqD7FKMH-Mia8AQYiqmavTr_T-50V0FEoNm1hwKWkwHA9kDA5iCZr9QC5j-pS2rbmW5n-5xXl640Bdog"/>
+</div>
+</div>
+</header>
+<!-- Chat Interface Container -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Message Stream -->
+<section class="flex-1 flex flex-col relative">
+<div class="flex-1 overflow-y-auto px-8 py-10 custom-scrollbar space-y-12">
+<!-- User Message -->
+<div class="flex items-start gap-6 max-w-4xl mx-auto group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-fixed-dim border border-outline-variant/10">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+<div class="flex-1 pt-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Internal Requester</span>
+<span class="text-[10px] text-on-surface-variant/40">14:02:11</span>
+</div>
+<p class="text-on-surface text-lg font-light leading-relaxed">Analyze the divergence in the vector embeddings for the Q3 dataset relative to the primary semantic cluster. I need to understand why the outlier nodes are forming a secondary helix structure.</p>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex items-start gap-6 max-w-4xl mx-auto">
+<div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center border border-primary-container/20 intelligence-pulse">
+<span class="font-headline font-bold text-[#00D2FF] text-lg">Σ</span>
+</div>
+<div class="flex-1 pt-1 space-y-6">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-[#00D2FF] uppercase tracking-widest">The Oracle</span>
+<div class="flex items-center gap-4">
+<span class="text-[10px] text-on-surface-variant/40">14:02:13</span>
+<button class="text-on-surface-variant/40 hover:text-[#00D2FF] transition-colors"><span class="material-symbols-outlined text-sm" data-icon="content_copy">content_copy</span></button>
+</div>
+</div>
+<div class="space-y-4">
+<p class="text-on-surface text-lg leading-relaxed">
+                  Analysis complete. The divergence observed in the <span class="text-primary-fixed-dim bg-primary/5 px-1 rounded">Q3_Vector_Set</span> is attributed to a <span class="italic">contextual drift</span> within the neural weights during the fine-tuning phase. 
+                </p>
+<p class="text-on-surface text-lg leading-relaxed">
+                  The outlier nodes represent high-dimensional concepts that have been compressed into a secondary manifold. This "helix" structure suggests that the model is attempting to preserve <span class="font-bold text-[#00D2FF]">temporal metadata</span> alongside semantic relationships.
+                </p>
+</div>
+<!-- Citations Expander -->
+<div class="bg-surface-container-low rounded-lg p-1 border border-outline-variant/10">
+<button class="w-full flex items-center justify-between p-3 hover:bg-surface-container-high transition-colors rounded">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="source">source</span>
+<span class="text-xs font-bold uppercase tracking-widest">Source Vector Citations (3)</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</button>
+<div class="p-4 space-y-4 border-t border-outline-variant/5">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-3 rounded border-l-2 border-[#00D2FF]/30">
+<p class="text-[10px] text-primary/60 font-mono mb-1">VECTOR_ID: 0x982-A</p>
+<p class="text-xs text-on-surface-variant line-clamp-2 italic">"...temporal variance in dataset Q3 shows a 14% deviation from standard distribution models..."</p>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded border-l-2 border-[#00D2FF]/30">
+<p class="text-[10px] text-primary/60 font-mono mb-1">VECTOR_ID: 0x114-C</p>
+<p class="text-xs text-on-surface-variant line-clamp-2 italic">"...semantic manifold compression often results in helical clustering in transformer architectures..."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Loading AI State (Pulse) -->
+<div class="flex items-start gap-6 max-w-4xl mx-auto opacity-60">
+<div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center border border-primary-container/20">
+<span class="font-headline font-bold text-[#00D2FF] text-lg">λ</span>
+</div>
+<div class="flex-1 pt-4">
+<div class="flex gap-1">
+<div class="w-1.5 h-1.5 bg-primary-container rounded-full animate-bounce" style="animation-delay: 0s"></div>
+<div class="w-1.5 h-1.5 bg-primary-container rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+<div class="w-1.5 h-1.5 bg-primary-container rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-8 bg-gradient-to-t from-[#0A0A0A] to-transparent">
+<div class="max-w-4xl mx-auto relative group">
+<div class="absolute inset-0 -m-0.5 bg-gradient-to-r from-primary/20 via-primary/5 to-primary/20 rounded-xl blur opacity-20 group-focus-within:opacity-50 transition-opacity"></div>
+<div class="relative bg-surface-container-low rounded-xl border border-outline-variant/10 flex flex-col">
+<textarea class="bg-transparent border-none focus:ring-0 w-full p-5 text-on-surface placeholder:text-on-surface-variant/30 resize-none min-h-[120px] font-body" placeholder="Synthesize new command..."></textarea>
+<div class="flex items-center justify-between px-5 pb-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant/40 hover:text-[#00D2FF] transition-all"><span class="material-symbols-outlined" data-icon="attach_file">attach_file</span></button>
+<button class="p-2 text-on-surface-variant/40 hover:text-[#00D2FF] transition-all"><span class="material-symbols-outlined" data-icon="image">image</span></button>
+<div class="h-4 w-[1px] bg-outline-variant/20 mx-2"></div>
+<span class="text-[10px] font-bold text-on-surface-variant/30 tracking-widest uppercase">GPT-4 Omni v2.4</span>
+</div>
+<button class="bg-primary-container text-on-primary font-black py-2 px-6 rounded text-xs uppercase tracking-widest flex items-center gap-2 hover:brightness-110 active:scale-95 transition-all">
+<span>Execute</span>
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+<p class="text-center mt-4 text-[10px] text-on-surface-variant/20 tracking-tighter uppercase font-medium">Neural Engine may exhibit algorithmic bias in high-entropy scenarios.</p>
+</div>
+</section>
+<!-- Sidebar Meta-Information -->
+<aside class="w-80 bg-[#131313] border-l border-outline-variant/5 hidden xl:flex flex-col p-6 space-y-8">
+<div>
+<h3 class="text-xs font-bold text-primary uppercase tracking-widest mb-4">Context Metrics</h3>
+<div class="space-y-4">
+<div class="bg-surface-container-high/40 p-4 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] text-on-surface-variant uppercase">Token Load</span>
+<span class="text-[10px] text-primary font-mono">42%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 42%"></div>
+</div>
+</div>
+<div class="bg-surface-container-high/40 p-4 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] text-on-surface-variant uppercase">Latency</span>
+<span class="text-[10px] text-primary font-mono">14ms</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 14%"></div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-xs font-bold text-primary uppercase tracking-widest mb-4">Active Knowledge Bases</h3>
+<ul class="space-y-2">
+<li class="flex items-center gap-3 p-2 rounded hover:bg-surface-container-low transition-colors group cursor-pointer">
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:text-primary" data-icon="folder_zip">folder_zip</span>
+<span class="text-xs text-on-surface-variant">Q3_Semantic_Archive</span>
+</li>
+<li class="flex items-center gap-3 p-2 rounded hover:bg-surface-container-low transition-colors group cursor-pointer">
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:text-primary" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-xs text-on-surface-variant">Global_Trend_Vector</span>
+</li>
+<li class="flex items-center gap-3 p-2 rounded hover:bg-surface-container-low transition-colors group cursor-pointer">
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:text-primary" data-icon="schema">schema</span>
+<span class="text-xs text-on-surface-variant">Corporate_Taxonomy_V4</span>
+</li>
+</ul>
+</div>
+<div class="mt-auto bg-primary-container/5 p-4 rounded-lg border border-primary/10">
+<p class="text-[10px] font-bold text-[#00D2FF] uppercase tracking-widest mb-2">System Alert</p>
+<p class="text-xs text-on-surface-variant leading-relaxed">Vector cluster 0x992 has reached maximum density. Suggesting immediate re-indexing for optimized query resolution.</p>
+<button class="mt-3 text-[10px] font-bold text-[#00D2FF] underline decoration-primary/30 underline-offset-4 hover:decoration-primary">RUN RE-INDEX</button>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oracle AI - Neural Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary": "#442b00",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary-container": "#00566a",
+                        "background": "#131313",
+                        "on-primary-fixed-variant": "#004e60",
+                        "primary-fixed-dim": "#47d6ff",
+                        "tertiary-fixed": "#ffddb1",
+                        "tertiary-container": "#ffb229",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-background": "#e5e2e1",
+                        "surface-bright": "#3a3939",
+                        "inverse-on-surface": "#313030",
+                        "outline-variant": "#3c494e",
+                        "tertiary-fixed-dim": "#ffba4a",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e5e2e1",
+                        "primary-container": "#00d2ff",
+                        "primary-fixed": "#b6ebff",
+                        "on-tertiary-fixed": "#291800",
+                        "on-tertiary-container": "#6c4700",
+                        "on-surface": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "tertiary": "#ffd79f",
+                        "surface-container-highest": "#353534",
+                        "outline": "#859399",
+                        "surface-container": "#201f1f",
+                        "surface-variant": "#353534",
+                        "on-secondary": "#313030",
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-primary": "#00677f",
+                        "secondary": "#c8c6c5",
+                        "on-primary": "#003543",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-surface-variant": "#bbc9cf",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-container": "#474746",
+                        "primary": "#a5e7ff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#624000",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "surface": "#131313",
+                        "on-secondary-container": "#b7b4b4",
+                        "on-primary-fixed": "#001f28",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-dim": "#131313",
+                        "surface-tint": "#47d6ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .mono-chat {
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.02em;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.15);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00D2FF;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col h-full py-8 w-64 bg-[#1C1B1B] dark:bg-[#0E0E0E] shrink-0">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div>
+<p class="font-inter text-xs font-medium uppercase tracking-wider text-[#00D2FF]">The Oracle</p>
+<p class="text-[10px] text-on-surface-variant font-label uppercase tracking-widest">Enterprise Tier</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<!-- Active Tab: New Chat -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#00D2FF] font-bold bg-[#2A2A2A] hover:translate-x-1 duration-200 transition-all font-inter text-xs uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span>New Chat</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-[#2A2A2A] hover:text-[#00D2FF] hover:translate-x-1 duration-200 transition-all font-inter text-xs uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-[#2A2A2A] hover:text-[#00D2FF] hover:translate-x-1 duration-200 transition-all font-inter text-xs uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Pinned Docs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-[#2A2A2A] hover:text-[#00D2FF] hover:translate-x-1 duration-200 transition-all font-inter text-xs uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-[#2A2A2A] hover:text-[#00D2FF] hover:translate-x-1 duration-200 transition-all font-inter text-xs uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Library</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 rounded bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-xs uppercase tracking-tighter hover:brightness-110 active:scale-95 duration-150 transition-all">
+                    Upgrade Intelligence
+                </button>
+<div class="mt-6 flex flex-col gap-4 border-t border-outline-variant/15 pt-6">
+<a class="flex items-center gap-3 text-gray-500 hover:text-[#00D2FF] transition-colors font-inter text-xs uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Help</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 hover:text-[#00D2FF] transition-colors font-inter text-xs uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span>Status</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col relative overflow-hidden bg-background">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center px-6 w-full h-16 bg-[#131313] dark:bg-[#0A0A0A] shadow-[0_8px_32px_rgba(0,210,255,0.06)] z-20">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-bold tracking-widest text-[#00D2FF] uppercase font-headline">Oracle AI</h1>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="font-manrope tracking-tight text-sm text-gray-400 hover:text-[#00D2FF] transition-colors duration-200" href="#">Models</a>
+<a class="font-manrope tracking-tight text-sm text-gray-400 hover:text-[#00D2FF] transition-colors duration-200" href="#">Datasets</a>
+<a class="font-manrope tracking-tight text-sm text-gray-400 hover:text-[#00D2FF] transition-colors duration-200" href="#">Exports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded bg-surface-container-low border border-outline-variant/15">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<span class="text-[10px] font-mono text-on-surface-variant uppercase tracking-widest">Neural Engine Active</span>
+</div>
+<button class="material-symbols-outlined text-gray-400 hover:text-[#00D2FF] active:scale-95 transition-all">notifications</button>
+<button class="material-symbols-outlined text-gray-400 hover:text-[#00D2FF] active:scale-95 transition-all">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary-container/30">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="professional headshot of a person with neutral expression and clean studio lighting on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATd3lFcfSfQ5yORerxZ50k-vmbtqWo24TlLVM5tTdUCHng2tlGhrON3_1Z4WouZspVPkG2JRgEBTWGn4xW8mRaEwsvlMbBLimQxZlHJ8aIntElADW_IaAma3QffuvDWTgfyUSQnpqkV1AWB_s6GjJZR-sfNtBgKD8vUAU73bSLrZyt8a3T5KZPx7yhW2qWvr2j2YC5JqAO5eqn843zIf8SSxyTWKXd3mHfjOrXeE0-K_wvxxT_jIir-WFo0s3gGInmTOhZypAZdb0"/>
+</div>
+</div>
+</header>
+<!-- Chat Interface -->
+<section class="flex-1 flex flex-col px-6 md:px-12 py-8 overflow-y-auto max-w-5xl mx-auto w-full space-y-12">
+<!-- System Message -->
+<div class="flex gap-6 group">
+<div class="shrink-0 mt-1">
+<div class="w-10 h-10 bg-surface-container-low flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+</div>
+<div class="flex-1 space-y-4">
+<div class="mono-chat text-2xl md:text-3xl font-bold leading-tight text-on-surface">
+                            SYSTEM_CORE initialized. Neural Engine optimized for complex computation. How shall we proceed?
+                        </div>
+</div>
+</div>
+<!-- User Query -->
+<div class="flex gap-6 justify-end">
+<div class="flex-1 text-right space-y-4">
+<div class="mono-chat text-2xl md:text-3xl font-medium leading-tight text-on-surface-variant">
+                            Calculate the variance of the projected neural pathways using the σ² formula for dataset_v3.
+                        </div>
+</div>
+<div class="shrink-0 mt-1">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+</div>
+</div>
+<!-- AI Response with Math -->
+<div class="flex gap-6 group">
+<div class="shrink-0 mt-1">
+<div class="w-10 h-10 bg-surface-container-low border border-primary-container/20 flex items-center justify-center rounded glow-cyan">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+</div>
+<div class="flex-1 space-y-8">
+<div class="mono-chat text-2xl md:text-3xl font-bold leading-tight text-primary-container">
+                            Analysis complete. ∫ f(x) dx applied to latent vector space.
+                        </div>
+<div class="mono-chat text-lg text-on-surface-variant leading-relaxed border-l-2 border-primary-container/30 pl-6 space-y-4">
+<p>To determine σ², we first compute the mean μ across the primary nodes.</p>
+<div class="bg-surface-container-lowest p-6 rounded-lg font-mono text-primary border border-outline-variant/10">
+                                σ² = ∑ (xᵢ - μ)² / N
+                                <br/>
+                                Result: 0.00042 λ
+                            </div>
+<p>This indicates a high degree of convergence in the neural architecture.</p>
+</div>
+<!-- Source Citations (Expandable) -->
+<div class="space-y-3">
+<button class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">inventory</span>
+                                3 Sources Cited
+                                <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded hover:bg-surface-container-high transition-colors group cursor-pointer border-b-2 border-transparent hover:border-primary-container">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-mono text-primary-container px-2 py-0.5 bg-primary-container/10 rounded">DOC_092</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">open_in_new</span>
+</div>
+<p class="text-xs font-bold text-on-surface group-hover:text-primary transition-colors">Neural Pathway Variance Report 2024</p>
+<p class="text-[10px] text-on-surface-variant mt-1 italic">p. 142 - Statistical convergence metrics...</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded hover:bg-surface-container-high transition-colors group cursor-pointer border-b-2 border-transparent hover:border-primary-container">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-mono text-primary-container px-2 py-0.5 bg-primary-container/10 rounded">SYS_METRIC</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">open_in_new</span>
+</div>
+<p class="text-xs font-bold text-on-surface group-hover:text-primary transition-colors">Dataset_V3 Live Monitoring Logs</p>
+<p class="text-[10px] text-on-surface-variant mt-1 italic">Real-time telemetry stream data...</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-24"></div> <!-- Spacer for Input -->
+</section>
+<!-- Sticky Input Area -->
+<div class="absolute bottom-0 left-0 w-full p-6 md:p-10 bg-gradient-to-t from-background via-background/90 to-transparent">
+<div class="max-w-4xl mx-auto relative group">
+<div class="absolute -inset-0.5 bg-primary-container/20 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-500"></div>
+<div class="relative bg-surface-container-lowest border-b-2 border-primary-container/50 overflow-hidden flex items-end p-4 gap-4">
+<button class="mb-2 material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">add</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-xl font-mono text-on-surface placeholder:text-surface-container-high resize-none py-2" placeholder="Query the Oracle..." rows="1"></textarea>
+<div class="flex items-center gap-3 mb-2">
+<span class="text-[10px] font-mono text-on-surface-variant hidden md:block">CMD + ENTER</span>
+<button class="w-10 h-10 bg-primary-container text-on-primary flex items-center justify-center rounded active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_upward</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between mt-3 px-2">
+<div class="flex gap-4">
+<button class="text-[10px] font-mono text-on-surface-variant hover:text-primary-container uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">language</span> Search Web
+                            </button>
+<button class="text-[10px] font-mono text-on-surface-variant hover:text-primary-container uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">attachment</span> Attach Files
+                            </button>
+</div>
+<div class="text-[10px] font-mono text-on-surface-variant/40 uppercase tracking-widest">
+                            Oracle v3.2.1-stable
+                        </div>
+</div>
+</div>
+</div>
+</main>
+<!-- Right Meta-Info Panel (Asymmetric Layout) -->
+<aside class="hidden xl:flex flex-col w-80 bg-[#0E0E0E] border-l border-outline-variant/10 p-6 space-y-8">
+<div>
+<h3 class="text-[10px] uppercase tracking-[0.2em] text-primary-container font-bold mb-6">Neural Context</h3>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-4 rounded border border-outline-variant/10">
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">Active Model</p>
+<p class="text-sm font-bold text-on-surface font-headline">GPT-4-Turbo_Oracle_v3</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded border border-outline-variant/10">
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">Temperature</p>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="w-2/3 h-full bg-primary-container"></div>
+</div>
+<span class="text-xs font-mono text-on-surface">0.7</span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold mb-6">Key Entities Detected</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-high text-[10px] rounded-full text-on-surface font-mono border border-outline-variant/20 hover:border-primary-container transition-colors cursor-default">dataset_v3</span>
+<span class="px-3 py-1 bg-surface-container-high text-[10px] rounded-full text-on-surface font-mono border border-outline-variant/20 hover:border-primary-container transition-colors cursor-default">pathway_var</span>
+<span class="px-3 py-1 bg-surface-container-high text-[10px] rounded-full text-on-surface font-mono border border-outline-variant/20 hover:border-primary-container transition-colors cursor-default">neural_opt</span>
+<span class="px-3 py-1 bg-surface-container-high text-[10px] rounded-full text-on-surface font-mono border border-outline-variant/20 hover:border-primary-container transition-colors cursor-default">sigma_calc</span>
+</div>
+</div>
+<div class="mt-auto">
+<div class="bg-gradient-to-br from-surface-container-low to-surface-container-lowest p-6 rounded-xl border border-primary-container/10 overflow-hidden relative group">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary-container/5 rounded-full blur-2xl group-hover:bg-primary-container/10 transition-colors"></div>
+<p class="text-xs font-bold text-on-surface mb-2">Memory Usage</p>
+<div class="h-16 flex items-end gap-1">
+<div class="flex-1 bg-primary-container/20 h-[40%] rounded-t"></div>
+<div class="flex-1 bg-primary-container/20 h-[60%] rounded-t"></div>
+<div class="flex-1 bg-primary-container/20 h-[45%] rounded-t"></div>
+<div class="flex-1 bg-primary-container/40 h-[80%] rounded-t animate-pulse"></div>
+<div class="flex-1 bg-primary-container/20 h-[30%] rounded-t"></div>
+<div class="flex-1 bg-primary-container/20 h-[50%] rounded-t"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-3 font-mono">14.2GB / 32GB Allocated</p>
+</div>
+</div>
+</aside>
+</div>
+<!-- Mobile Navigation (Bottom Bar) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant/10 px-6 py-3 flex justify-between items-center z-50">
+<button class="flex flex-col items-center gap-1 text-[#00D2FF]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="text-[10px] uppercase font-bold">New</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px] uppercase font-bold">History</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[10px] uppercase font-bold">Library</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] uppercase font-bold">Settings</span>
+</button>
+</footer>
+</body></html>
