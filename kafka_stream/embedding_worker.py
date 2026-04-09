@@ -42,8 +42,8 @@ while True:
     
     if buffer and (len(buffer)>=MAX_BATCH_SIZE or (now - last_flush_time >= BATCH_INTERVAL)):
         try:
-            vectors = embed(buffer)
-            insert(vectors, buffer, metadata_buffer)
+            dense_vectors, sparse_vectors = embed(buffer)
+            insert(dense_vectors, sparse_vectors, buffer, metadata_buffer)
             consumer.commit()
             print(f"Successfully processed and committed batch of {len(buffer)} documents.")
             buffer.clear()

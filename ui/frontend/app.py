@@ -43,9 +43,8 @@ st.markdown(
     }
 
     /* ── hide Streamlit chrome ── */
-    #MainMenu, footer, header,
+    #MainMenu, footer, 
     [data-testid="stDecoration"],
-    [data-testid="stToolbar"],
     [data-testid="stStatusWidget"] { display: none !important; }
 
     /* ── main content block ── */

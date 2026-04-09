@@ -1,5 +1,5 @@
 from qdrant_client import QdrantClient
-from qdrant_client.models import VectorParams, Distance
+from qdrant_client.models import VectorParams, Distance, SparseVectorParams
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -15,8 +15,13 @@ def init_collection():
     if COLLECTION not in names:
         client.create_collection(
             collection_name=COLLECTION,
-            vectors_config=VectorParams(
-                size=384,
-                distance=Distance.COSINE
-            ),
+            vectors_config= {
+                "dense": VectorParams(
+                    size=384,  
+                    distance=Distance.COSINE
+                )
+            },
+            sparse_vectors_config={
+            "sparse": SparseVectorParams()
+            }
         )

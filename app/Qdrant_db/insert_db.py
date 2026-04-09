@@ -3,11 +3,11 @@ from app.Qdrant_db.initialise_db import client, COLLECTION
 from app.generate_hash import generate_doc_id
 
 
-def build_points(vectors, texts, metadata_list):
+def build_points(dense_vectors, sparse_vectors, texts, metadata_list):
     
     points = []
 
-    for vector, text, metadata in zip(vectors, texts, metadata_list):
+    for dense, sparse, text, metadata in zip(dense_vectors, sparse_vectors, texts, metadata_list):
         doc_id = generate_doc_id(text)
         payload = {
             "text": text,
@@ -17,7 +17,13 @@ def build_points(vectors, texts, metadata_list):
         points.append(
             PointStruct(
                 id=doc_id,
-                vector=vector,
+                vector={
+                    "dense": dense,
+                    "sparse": {
+                        "indices": sparse.indices.tolist(),
+                        "values": sparse.values.tolist()
+                    }
+                },
                 payload=payload
             )
         )
@@ -25,8 +31,8 @@ def build_points(vectors, texts, metadata_list):
     return points
 
 
-def insert(vectors, texts, metadata_list):
-    points = build_points(vectors, texts, metadata_list)
+def insert(dense_vectors, sparse_vectors, texts, metadata_list):
+    points = build_points(dense_vectors, sparse_vectors, texts, metadata_list)
 
     client.upsert(
         collection_name=COLLECTION,
