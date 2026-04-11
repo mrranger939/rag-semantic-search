@@ -33,3 +33,56 @@ def generate_node(state: AgentState):
     return {
         "answer": response.content
     }
+
+
+def grade_node(state):
+    question = state["question"]
+    context = state["context"]
+
+    prompt = f"""
+        You are a strict evaluator.
+
+        Check if the retrieved context is relevant to the question.
+
+        Rules:
+        - If the context clearly contains information to answer the question → say YES
+        - Otherwise → say NO
+        - Only respond with YES or NO
+
+        Question:
+        {question}
+
+        Context:
+        {context}
+        """
+
+    response = llm.invoke(prompt).content.strip().upper()
+
+    return {
+        "is_relevant": "YES" in response
+    }
+
+def rewrite_node(state):
+    question = state["question"]
+
+    prompt = f"""
+        You are an expert query rewriter.
+
+        Rewrite the user question to make it more specific and searchable.
+
+        Rules:
+        - Keep the meaning same
+        - Make it clearer and more detailed
+        - Do NOT answer the question
+        - Only return the rewritten question
+
+        Original question:
+        {question}
+        """
+
+    response = llm.invoke(prompt).content.strip()
+
+    return {
+        "question": response,
+        "retries": state["retries"] + 1
+    }

@@ -4,7 +4,9 @@ def chat(question: str):
     state = {
         "question": question,
         "context": "",
-        "answer": ""
+        "answer": "",
+        "is_relevant": False,
+        "retries": 0
     }
 
     result = graph.invoke(state)
